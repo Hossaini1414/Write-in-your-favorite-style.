@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>login form</title>
+  <style>
+    .cursor-pen {
+      cursor: 
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class=" flex items-center justify-center min-h-screen">
+
+  <!-- cantainer-->
+<div class=" p-6 rounded-xl text-center md:w-1/2 mx-auto sm:w-full">
+<!-- title-->
+<h1 class="text-green-500 text-2xl md:text-4xl font-bold font-serif   underline text-xl"> Write the text in your desired color </h1>
+<!-- paragraph Div-->
+<div class="min-h-56 box border-t-purple-800 border-b-blue-400 border-l-yellow-400 border-r-orange-600 border-2 p-2 bg-white cursor-text text-left m-2
+md:text-xl text-md ">
+
+ <!-- buttons-->
+   <h3 class="text-center text-purple-800 font-bold font-mono p-2 sm:text-md"> <span class="text-red-500 md:text-2xl ">Choose </span><span class="text-blue-600 md:text-2xl">Your</span><span class="md:text-2xl" > Favorite</span> <span class="text-orange-500 md:text-3xl">Color</span></h3>
+<div class="container grid grid-cols-6  md:gap-2 ">
+<!-- red button--> 
+<img src="images/red.png"    class="w-1/3    cursor-pen   hover:scale-110" id="red"/>
+<!-- blue button-->
+<img src="images/blue.png"   class="w-1/3    cursor-pen   hover:scale-110" id="blue"/>
+<!-- green button-->
+<img src="images/green.png"  class="w-1/3    cursor-pen   hover:scale-110" id="green"/>
+<!-- purple button--> 
+<img src="images/purple.png" class="w-1/3    cursor-pen   hover:scale-110" id="purple"/>
+<!-- yellow button-->
+<img src="images/yellow.png" class="w-1/3    cursor-pen   hover:scale-110" id="yellow"/>
+<!-- orange button-->
+<img src="images/orange.png" class="w-1/3    cursor-pen   hover:scale-110" id="orange"/>
+
+</div>
+<hr class="w-full bg-green-600 my-2 ">
+<h3 class="text-center text-purple-800 font-bold font-mono p-2"> <span class="text-green-500 md:text-2xl ">Choose </span><span class="text-purple-600 md:text-xl">Your</span><span class="md:text-xl text-blue-600" > Favorite</span> <span class="text-red-500 md:text-2xl">Style</span></h3>
+<div class="container grid grid-cols-7  ">
+<!-- italic button--> 
+<button    class="w-1/2   cursor-pointer  sm:text-md hover:scale-150  md:text-2xl  font-semibold italic font-serif" id="italic">I</button>
+<!-- bold button-->
+<button    class="w-1/2   font-extrabold md:text-2xl sm:text-md cursor-pointer   hover:scale-150" id="bold">B</button>
+<!-- under line button-->
+<button    class="w-1/2   font-extrabold md:text-2xl sm:text-md font-serif cursor-pen   hover:scale-110 underline" id="underLine">U</button>
+<!-- over line button--> 
+<button    class="w-1/2    cursor-pointer     sm:text-md md:text-2xl hover:scale-110 overline" id="overLine">abc</button>
+<!-- line through button-->
+<button    class="w-1/2    cursor-pointer     sm:text-md md:text-2xl hover:scale-110 line-through" id="line-in">abc</button>
+<!-- upper button-->
+<button    class="w-1/2    cursor-pointer     sm:text-md md:text-xl hover:scale-110 uppercase font-serif" id="uppercase">ABC</button>
+<!-- lover button-->
+<button    class="w-1/2    cursor-pointer     sm:text-md md:text-2xl hover:scale-110 lowercase font-mono" id="lovercase">abc</button>
+
+</div>
+<hr class="w-full my-2 ">
+  <!-- text area-->
+  <div id="editorDiv" class="w-full min-h-48 outline-none cursor-pen" >
+    <span contenteditable="true" class="text-black outline-none min-w-10"  id="span"></span>
+  </div>
+</div>
+
+<!-- buttons container -->
+<div class="w-full grid grid-cols-1 md:grid-cols-2 gap-1 mt-4">
+  <button class="w-full bg-blue-400 border-2 rounded-xl text-white text-md p-2 hover:scale-105" id="RandomText">Random Texts</button>
+  <button class="w-full bg-green-400 border-2 rounded-xl text-white text-md p-2 hover:scale-105" id="changeBg">Change Backgroung Color</button>
+  <button class="w-full bg-zinc-400 border-2 rounded-xl text-white text-md p-2 hover:scale-105" id="removeStyle">remove style</button>
+  <button class="w-full bg-red-400 border-2 rounded-xl text-white text-md p-2 hover:scale-105" id="clearText">clear all</button>
+</div>
+</div>
+
+
+<script>
+  const editorDiv = document.querySelector("#editorDiv");
+
+  const getLastEditableSpan = () => {
+    const spans = editorDiv.querySelectorAll('span[contenteditable]');
+    return spans.length ? spans[spans.length - 1] : null;
+  };
+
+  const createNewEditableSpan = () => {
+    const span = document.createElement("span");
+    span.className = "cursor-pen";
+    span.contentEditable = "true";
+    span.style.outline = "none";
+    editorDiv.appendChild(span);
+    span.focus();
+    return span;
+  };
+
+  const ensureEditableSpan = () => {
+    const last = getLastEditableSpan();
+    if (!last || last.innerText.trim() !== "") {
+      return createNewEditableSpan();
+    }
+    return last;
+  };
+
+  const applyColor = (color) => {
+    const span = ensureEditableSpan();
+    span.style.color = color;
+    span.focus();
+  };
+
+  const applyClass = (className) => {
+    const span = ensureEditableSpan();
+    span.classList.add(className);
+    span.focus();
+  };
+
+  // colors
+  document.getElementById("red").addEventListener("click", () => applyColor("red"));
+  document.getElementById("blue").addEventListener("click", () => applyColor("blue"));
+  document.getElementById("green").addEventListener("click", () => applyColor("green"));
+  document.getElementById("purple").addEventListener("click", () => applyColor("purple"));
+  document.getElementById("yellow").addEventListener("click", () => applyColor("yellow"));
+  document.getElementById("orange").addEventListener("click", () => applyColor("orange"));
+
+  // styles
+  document.getElementById("italic").addEventListener("click", () => applyClass("italic"));
+  document.getElementById("bold").addEventListener("click", () => applyClass("font-extrabold"));
+  document.getElementById("underLine").addEventListener("click", () => applyClass("underline"));
+  document.getElementById("overLine").addEventListener("click", () => applyClass("overline"));
+  document.getElementById("line-in").addEventListener("click", () => applyClass("line-through"));
+  document.getElementById("uppercase").addEventListener("click", () => applyClass("uppercase"));
+  document.getElementById("lovercase").addEventListener("click", () => applyClass("lowercase"));
+
+  // remove style
+  document.getElementById("removeStyle").addEventListener("click", () => {
+    const spans = editorDiv.querySelectorAll('span');
+    spans.forEach(span => {
+      span.removeAttribute('style');
+      span.className = '';
+    });
+  });
+
+  // clear all taxt 
+  document.getElementById("clearText").addEventListener("click", () => {
+    editorDiv.innerHTML = '';
+    createNewEditableSpan();
+  });
+
+  //   focus on last span
+  editorDiv.addEventListener("click", () => {
+    const span = getLastEditableSpan();
+    if (span) span.focus();
+  });
+
+  // random 
+  const RandomTexts = ['Stay Strong', 'Keep going', 'Be bold', 'Dream big', 'Never quit', 'Win today', 'Shine bright'];
+  const randomColor = ['red', 'purple', 'blue', 'gray', 'yellow', 'orange', 'green', 'cyan', 'pink', 'brown', 'magenta'];
+  const classes = ['font-bold', 'italic', 'tracking-wide', 'tracking-tighter', 'text-2xl', 'bg-green-200'];
+  const bgColors = ['bg-green-100', 'bg-green-200','bg-blue-100','bg-green-200', 'bg-slice-100','bg-gray-100','bg-gray-200', 'bg-purple-100','bg-purple-200','bg-pink-100', 'bg-pink-200','bg-zinc-100','bg-zinc-100', 'bg-yellow-100','bg-yellow-200','bg-orange-100', 'bg-orange-200','bg-stone-300','bg-indigo-300', 'bg-cyan-200','bg-lime-300',];
+  // random text
+  document.getElementById('RandomText').addEventListener('click', () => {
+    const text = RandomTexts[Math.floor(Math.random() * RandomTexts.length)];
+    const color = randomColor[Math.floor(Math.random() * randomColor.length)];
+    const style = classes[Math.floor(Math.random() * classes.length)];
+
+    const span = document.createElement("span");
+    span.contentEditable = "true";
+    span.innerText = text + " ";
+    span.style.outline = 'none';
+    span.style.color = color;
+    span.className = "cursor-pen " + style;
+    editorDiv.innerHTML = "";
+    editorDiv.classList.add("text-center");
+    editorDiv.appendChild(span);
+    span.focus();
+  });
+ 
+
+  // random bg color
+ document.getElementById('changeBg').addEventListener('click', () => {
+  const body = document.body;
+  bgColors.forEach(cls => body.classList.remove(cls));
+  const bgColor = bgColors[Math.floor(Math.random() * bgColors.length)];
+  body.classList.add(bgColor);
+  });
+</script>
+</body>
+</html>
